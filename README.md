@@ -43,6 +43,10 @@ and the compiler will use it preferentially over a better match signature-wise, 
 Here are the relevant examples:  [MockingCApi.h](MockingCApi.h) and [MockingCApi.cpp](MockingCApi.cpp).  And the ```MOCKABLE_FUNCTION``` macro header:  [MockableFunction.h](MockableFunction.h).
 
 
+You can find my materials from when I gave presentation at Agile 2012, [here](https://www.agilealliance.org/wp-content/uploads/2016/01/EasilyMockingDependenciesInC.pdf) and [here](https://www.agilealliance.org/wp-content/uploads/2016/01/PrintOuts.cpp_.pdf). They contain a few more examples, kernel mode, for instance.
+
+
+
 So to recap:  I like to mock this way because I've touched my code and architecture only lightly:  I templatize my class with a base class that has a one-liner or two, and provide a ```using``` statement so that all existing clients of my code still compile.
 
 That should do it.  Happy mocking!
