@@ -15,7 +15,7 @@ namespace ExampleUsageOfTBCI
         {
             TheProductionCode obj;
             IUnknown* punk = nullptr;
-            HRESULT hr = obj.GetSomeCOMInterface(punk); // will fail becamse CoInitialize() was not called
+            HRESULT hr = obj.GetSomeCOMInterface(punk);
             if (punk)
                 punk->Release(); // if only I could use an ATL smart pointer here...
 
@@ -34,4 +34,5 @@ namespace ExampleUsageOfTBCI
             Assert::IsNull(punk);
         }
     };
+
 }
