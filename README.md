@@ -1,7 +1,7 @@
 # tbci
 ## Test Base Class Injection
 
-or, How to mock anything in C++.
+or, How to mock ***anything*** in C++.
 
 I often need to mock up the slow parts of my code, code with random numbers, system calls or similar. But I hate to change my code drastically just to make it testable. And that's where TBCI comes in.
 
@@ -22,3 +22,25 @@ If, on the other hand, a type *does* depend on a template parameter type, then i
 To make sure our mocked up type gets picked up, we need to add a ```using typename Base::IWantToMockThis;``` to our template class and make sure the definition is pulled into the base class via ```using IWantToMockThis = ::IWantToMockThis;```.
 
 That'll do it. It works not only on automatic variables, but also on arguments, return values, data-members and C calls.
+
+### Mocking C APIs:
+
+The same concept applies to mocking C APIs, but rather than needing a ```using typename Base::IWantToMockThis;```, we need a ```using SomeAPICall;``` (N.B.:  note the lack of ```typename```).
+Also, rather than pulling the definition of the type into the base class, we need a little forwarding function. It's a one-liner, but those get tedious to write, so I've supplied a macro that forwards
+to any C call in the global namespace, like this:
+
+```#define MOCKABLE_FUNCTION(NAME) template <typename... Args> static inline decltype(auto) NAME(Args&&... args) { return ::NAME(std::forward<Args>(args)...); }```
+
+Of course, you can write them by hand, if you prefer. One final note, since C++ matches functions by name, rather than by signature, you can write your test code like this:
+```
+   struct TestBase
+   {
+       HRESULT CoCreateInstance(...) { return E_FAIL; } // note use of ...
+   };
+```
+and the compiler will use it preferentially over a better match signature-wise, if it finds it in the base class.
+
+Here are the relevant examples:  [MockingCApi.h](MockingCApi.h) and [MockingCApi.cpp](MockingCApi.cpp).  And the ```MOCKABLE_FUNCTION``` macro header:  [MockableFunction.h](MockableFunction.h).
+
+
+That should do it.  Happy mocking!
