@@ -25,7 +25,7 @@ That'll do it. It works not only on automatic variables, but also on arguments, 
 
 ### Mocking C APIs:
 
-The same concept applies to mocking C APIs, but rather than needing a ```using typename Base::IWantToMockThis;```, we need a ```using SomeAPICall;``` (N.B.:  note the lack of ```typename```).
+The same concept applies to mocking C APIs, but rather than needing a ```using typename Base::IWantToMockThis;```, we need a ```using Base::SomeAPICall;``` (N.B.:  note the lack of ```typename```).
 Also, rather than pulling the definition of the type into the base class, we need a little forwarding function. It's a one-liner, but those get tedious to write, so I've supplied a macro that forwards
 to any C call in the global namespace, like this:
 
@@ -38,7 +38,7 @@ Of course, you can write them by hand, if you prefer. One final note, since C++ 
        HRESULT CoCreateInstance(...) { return E_FAIL; } // note use of ...
    };
 ```
-and the compiler will use it preferentially over a better match signature-wise, if it finds it in the base class.
+and the compiler will use it preferentially over a better match signature-wise, since it finds it in the base class first, before finding it in the global namespace.
 
 Here are the relevant examples:  [MockingCApi.h](MockingCApi.h) and [MockingCApi.cpp](MockingCApi.cpp).  And the ```MOCKABLE_FUNCTION``` macro header:  [MockableFunction.h](MockableFunction.h).
 
