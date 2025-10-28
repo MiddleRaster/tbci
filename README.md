@@ -84,7 +84,7 @@ One further note:  when compiling a class template, the compiler does two passes
 
 These two ```using``` statements are the cost of TBCI and they're not even executable; they're just directives to the compiler on where the definitions live.
 
-This technique works not only on type used as automatic variables, but also return types, data-member types, argument types, you name it.  However, to mock a C function is similar, but slightly different.
+This technique works not only on types used as automatic variables, but also return types, data-member types, argument types, you name it.  However, to mock a C function is similar, but slightly different.
 
 
 ### Mocking C APIs:
