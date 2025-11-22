@@ -109,7 +109,7 @@ Here are the relevant examples:  [MockingCApi.h](MockingCApi.h) and [MockingCApi
 
 ### Final words
 
-You can find my materials from when I gave presentation at Agile 2012, [here](https://www.agilealliance.org/wp-content/uploads/2016/01/EasilyMockingDependenciesInC.pdf) and [here](https://www.agilealliance.org/wp-content/uploads/2016/01/PrintOuts.cpp_.pdf). They contain a few more examples, kernel mode, for instance.
+You can find my materials from when I gave presentation at Agile 2012, [here](https://www.agilealliance.org/wp-content/uploads/2016/01/PrintOuts.cpp_.pdf). They contain a few more examples, kernel mode, for instance.
 
 
 An objection to this technique is that you'd have to move all of this templated code into the headers. This is true, but lots of code written nowadays is header-only. I personally have been writing all my production code header-only since 2003 (way before I invented TBCI), but for a completely different reason:  in order to get DAG-only code. You can read about that [here](https://middleraster.github.io/DAG/HeaderOnlyNoForwardDeclarations.html).
