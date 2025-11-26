@@ -6,7 +6,7 @@ or, How to mock ***anything*** in C++.
 I often need to mock up the slow parts of my code, make nondeterministic code deterministric, mock system calls or just mock out a dependency. But I hate to change my code drastically just to make it testable. And that's where TBCI comes in.
 
 Wouldn't it be great if we could write code and tests like this?
-```
+```cpp
 // the dependency
 struct IWantToMockThis
 {
