@@ -96,7 +96,7 @@ to any C call in the global namespace, like this:
 ```#define MOCKABLE_FUNCTION(NAME) template <typename... Args> static inline decltype(auto) NAME(Args&&... args) { return ::NAME(std::forward<Args>(args)...); }```
 
 Of course, you can write them by hand, if you prefer. One final note: since C++ matches functions by name, rather than by signature, you can even write your test code like this:
-```
+```cpp
    struct TestBase
    {
        HRESULT CoCreateInstance(...) { return E_FAIL; } // note use of ...
