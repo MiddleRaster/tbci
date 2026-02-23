@@ -99,7 +99,7 @@ Of course, you can write them by hand, if you prefer. One final note: since C++ 
 ```cpp
    struct TestBase
    {
-       HRESULT CoCreateInstance(...) { return E_FAIL; } // note use of ...
+       HRESULT CoCreateInstance(...) { return E_FAIL; } // note use of "..."
    };
 ```
 and the compiler will use it preferentially over a better match signature-wise, since it finds it in the base class first, before finding it in the global namespace.
