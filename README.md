@@ -55,7 +55,7 @@ The C++ compiler does name resolution in the following order:
 4. The final place it looks is in the global namespace.  If it still hasn't found one, you'll get an error about a symbol not found or similar.
 
 Now, TBCI uses #2. We mock up a type and put it in a base class and make our class derive off of it. To make that work requires a little refactoring, but not too much. Take the ```ProductionCode``` struct above and refactor it like this:
-```
+```cpp
 struct Empty
 {
     using IWantToMockThis = ::IWantToMockThis;
