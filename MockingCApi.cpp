@@ -8,7 +8,7 @@ namespace ExampleUsageOfTBCI
 
     TEST_CLASS(MockingCApiTests)
     {
-        TEST_CLASS_INITIALIZE(Init) { ::CoInitialize(NULL); }
+        TEST_CLASS_INITIALIZE(Init) { std::ignore = ::CoInitialize(NULL); }
         TEST_CLASS_CLEANUP(Cleanup) { ::CoUninitialize(); }
 
         TEST_METHOD(OriginalCode)
@@ -36,3 +36,4 @@ namespace ExampleUsageOfTBCI
     };
 
 }
+
