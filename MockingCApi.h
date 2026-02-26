@@ -3,11 +3,12 @@
 #define MOCKINGCAPI_U
 
 #include <windows.h>
+#include <combaseapi.h>
 
 // CLSID for Shell's File Open Dialog
 inline constexpr CLSID CLSID_FileOpenDialog = { 0xDC1C5A9C,0xE88A,0x4DDE,{0xA5,0xA1,0x60,0xF8,0x2A,0x20,0xAE,0xF7} };
 
-/*
+/* original
 class TheProductionCode
 {
 public:
@@ -22,7 +23,8 @@ public:
 
 struct Empty
 {
-    MOCKABLE_FUNCTION(CoCreateInstance)
+    Callable<::CoCreateInstance> CoCreateInstance;
+    // or MOCKABLE_FUNCTION(CoCreateInstance);
 };
 
 template<typename Base>
