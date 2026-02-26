@@ -84,7 +84,7 @@ One further note:  when compiling a class template, the compiler does two passes
 
 These two ```using``` statements are the cost of TBCI and they're not even executable; they're just directives to the compiler on where the definitions live.
 
-This technique works not only on types used as automatic variables, but also return types, data-member types, argument types, you name it.  However, to mock a C function is similar, but slightly different.
+This technique works not only on types used as automatic variables, but also return types, data-member types, argument types, you name it.  However, to mock a C function is slightly different, but similar.
 
 
 ### Mocking C APIs:
@@ -95,16 +95,35 @@ to any C call in the global namespace, like this:
 
 ```#define MOCKABLE_FUNCTION(NAME) template <typename... Args> static inline decltype(auto) NAME(Args&&... args) { return ::NAME(std::forward<Args>(args)...); }```
 
-Of course, you can write them by hand, if you prefer. One final note: since C++ matches functions by name, rather than by signature, you can even write your test code like this:
+or, if you're like me and want to avoid macros, I've supplied a little template that creates a callable object that can forward to function in any namespace:
+
+```cpp
+template<auto Fn>
+struct Callable
+{
+    template<typename... Args> decltype(auto) operator()(Args&&... args) const { return Fn(std::forward<Args>(args)...); }
+};
+```
+which can be used to declare a callable data-member of the same name, e.g., 
+```cpp
+struct Empty
+{
+    Callable<::CoCreateInstance> CoCreateInstance;
+};
+```
+
+Of course, you can write them by hand, if you prefer. 
+
+One final note: since C++ matches functions by name, rather than by signature, you can even write your test code like this:
 ```cpp
    struct TestBase
    {
        HRESULT CoCreateInstance(...) { return E_FAIL; } // note use of "..."
    };
 ```
-and the compiler will use it preferentially over a better match signature-wise, since it finds it in the base class first, before finding it in the global namespace.
+and the compiler will use it preferentially over a better match signature-wise, since it finds it in the base class first (and then stops searching), even if it would have found a better match in the global namespace.
 
-Here are the relevant examples:  [MockingCApi.h](MockingCApi.h) and [MockingCApi.cpp](MockingCApi.cpp).  And the ```MOCKABLE_FUNCTION``` macro header:  [MockableFunction.h](MockableFunction.h).
+Here are the relevant examples:  [MockingCApi.h](MockingCApi.h) and [MockingCApi.cpp](MockingCApi.cpp).  And the ```MOCKABLE_FUNCTION & Callable``` header:  [MockableFunction.h](MockableFunction.h).
 
 
 ### Final words
