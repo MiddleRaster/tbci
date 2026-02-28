@@ -138,4 +138,4 @@ So to recap:  I like to mock this way because I've touched my code and architect
 
 That should do it.  Happy mocking!
 
-**P.S.**: if you'd like to see additional examples of TBCI in action, see the legacy socket code example, [second bullet point here](https://middleraster.github.io/TBCI/index.html) and [how to mock part of the STL](https://middleraster.github.io/TBCI/MockingTheSTL.html).
+**P.S.**: if you'd like to see additional examples of TBCI in action, see the legacy socket code example, [second bullet point here](https://middleraster.github.io/TBCI/index.html), and [how to mock part of the STL](https://middleraster.github.io/TBCI/MockingTheSTL.html).
