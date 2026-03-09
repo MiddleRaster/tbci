@@ -93,7 +93,9 @@ The same concept applies to mocking C APIs, but rather than needing a ```using t
 Also, rather than pulling the definition of the type into the base class, we need a little forwarding function. It's a one-liner, but those get tedious to write, so I've supplied a macro that forwards
 to any C call in the global namespace, like this:
 
-```#define MOCKABLE_FUNCTION(NAME) template <typename... Args> static inline decltype(auto) NAME(Args&&... args) { return ::NAME(std::forward<Args>(args)...); }```
+```cpp
+#define MOCKABLE_FUNCTION(NAME) template <typename... Args> static inline decltype(auto) NAME(Args&&... args) { return ::NAME(std::forward<Args>(args)...); }
+```
 
 or, if you're like me and want to avoid macros, I've supplied a little template that creates a callable object that can forward to function in any namespace:
 
